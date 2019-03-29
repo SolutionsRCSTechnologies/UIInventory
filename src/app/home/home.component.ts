@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   }];
   inventoryeditaddlist : any = [];
   Count: number;
+  public filterbyval :any = '';
 
   public filteredStates = [
     {
@@ -115,6 +116,50 @@ export class HomeComponent implements OnInit {
     }
     this.inventoryTypeList.unshift(tempObj);
   }
+  
+  public closestate:boolean = false;
+  public inventoryorderTypeList:any = [{
+    productName: 'ABCD4',
+    expDate : '02/12/2019',
+    count: '10',
+      mrp : '60',
+      discount : '10',
+      salesprice : '54',
+      CreatedFlag : 'N',
+      editedFlag : 'N'
+  }];
+  addproductOrder(){
+    let tempObj = {
+      productName: '',
+      expDate : '',
+      count: '',
+      mrp : '',
+      discount : '',
+      salesprice : '',
+      CreatedFlag : 'Y',
+      closestate:false,
+      producttypeId:''
+    }
+    this.inventoryorderTypeList.unshift(tempObj);
+  }
+
+  productSelection(state,item){
+    this.inventoryorderTypeList[item].productName = state.productName;
+    this.inventoryorderTypeList[item].closestate = false;
+    this.inventoryorderTypeList[item].producttypeId = state.productId;
+  }
+
+  ontypeorderSave(){
+    debugger
+    let obj;    
+    obj = this.inventoryorderTypeList.filter(item=>item.editedFlag == 'Y' || item.CreatedFlag == 'Y');
+    console.dir(obj);
+  }
+  // public inventoryCountList:any;
+  // productAuto(){
+  //   this.inventoryCountList =  this.inventoryTypeList.filter(x => x.productName.indexOf(this.filterbyval));
+  //   console.dir(this.inventoryCountList);
+  // }
 
 }
 

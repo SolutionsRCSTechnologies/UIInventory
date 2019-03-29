@@ -13,6 +13,7 @@
 
 <a (click)="addInventoryType()">ADD PRODUCT</a>
 Total Records {{Count}}
+<div class="autoInventory">
 <table id="tableMain" class="table global-table wrapperTable  spec-asset-list-table">
     <thead>
         <tr>
@@ -51,5 +52,70 @@ Total Records {{Count}}
     </tbody>
     
 </table>
+</div>
 
 <button class="btn btn__modify-btn pull-right" type="submit" role="button" (click)="onSave()">Save</button>
+
+<!-- <div>
+    <input placeholder="Search for products" (input)="closestate = true" type="text" class="inventoryText" [(ngModel)]="filterbyval" />
+
+    <ul class="inventoryUL">
+        <li *ngFor="let state of inventoryTypeList | filterBy:filterbyval:closestate" >
+            <a (click)="productSelection(state)">{{state.productName}}</a>
+        </li>
+    </ul>
+</div> -->
+<button class="btn-normal" (click)="addproductOrder()">Add Product for order</button>
+<div class="autoInventory">
+    <table id="tableMain" class="table global-table wrapperTable  spec-asset-list-table">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Expiry Date</th>
+                <th>Count</th>
+                <th>MRP</th>
+                <th>Discount (%)</th>
+                <th>Sale price</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <tr *ngFor="let item of inventoryorderTypeList; let i = index">
+            <!-- <tr *ngFor="let game of inventoryTypeList | paginate: { itemsPerPage: 1, currentPage: 1 }; let i = index"></tr> -->
+                <td style="width:300px;" *ngIf="item.CreatedFlag != 'Y'">{{item.productName}}</td>
+                <td style="width:300px;" *ngIf="item.CreatedFlag == 'Y'">
+                    <input type="text" (input)="item.closestate = true" class="form-control inventoryText" [(ngModel)]="item.productName">
+                    <ul class="inventoryUL">
+                        <li *ngFor="let state of inventoryTypeList | filterBy:item.productName:item.closestate" >
+                            <a (click)="productSelection(state,i)">{{state.productName}}</a>
+                        </li>
+                    </ul>
+                </td>
+                <td *ngIf="item.CreatedFlag != 'Y'">{{item.expDate}}</td>
+                <td *ngIf="item.CreatedFlag == 'Y'">
+                    <input type="text" class="form-control" [(ngModel)]="item.expDate">
+                </td>
+    
+                <td>
+                    <input type="number" class="form-control" (ngModelChange)="item.editedFlag = 'Y'" [(ngModel)]="item.count">
+                </td>
+                <td>
+                    <input type="number" class="form-control" (ngModelChange)="item.editedFlag = 'Y'" [(ngModel)]="item.mrp">
+                </td>
+                <td>
+                    <input type="number" class="form-control" (ngModelChange)="item.editedFlag = 'Y'" [(ngModel)]="item.discount">
+                </td>
+                <td>
+                    <input type="number" class="form-control" (ngModelChange)="item.editedFlag = 'Y'" [(ngModel)]="item.salesprice">
+                </td>
+                <!-- <td>
+                    <a class="cursorPointer" (click)="deleteInventoryTye(item.productId)">
+                        DELETE
+                    </a>
+                </td> -->
+            </tr>
+        </tbody>
+        
+    </table>
+    </div>
+    <button class="btn btn__modify-btn pull-right" type="submit" role="button" (click)="ontypeorderSave()">Save</button>

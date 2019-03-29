@@ -24,6 +24,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ErrorMessageComponent } from './error-message/error-message.component';
 //import {MatAutocompleteModule} from '@angular/material/autocomplete';
 //import { MatFormFieldModule } from '@angular/material/form-field';
+import { GlobalPipesModule } from './Pipes/global.pipes.module';
+
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import { ErrorMessageComponent } from './error-message/error-message.component';
     HttpModule,
     AppRoutingModule,
     SharedModule,
+    GlobalPipesModule
     //MatFormFieldModule
     // BrowserAnimationsModule,
     // MatAutocompleteModule
