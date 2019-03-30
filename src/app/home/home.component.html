@@ -11,8 +11,11 @@
     
   </mat-form-field> -->
 
-<a (click)="addInventoryType()">ADD PRODUCT</a>
-Total Records {{Count}}
+<!-- <a (click)="addInventoryType()">ADD PRODUCT</a> -->
+
+<button class="btn-normal" (click)="addInventoryType()">Add Product</button>
+
+<div style="margin-top:10px;"><b>Total Records</b> {{Count}}</div>
 <div class="autoInventory">
 <table id="tableMain" class="table global-table wrapperTable  spec-asset-list-table">
     <thead>
@@ -44,7 +47,7 @@ Total Records {{Count}}
                 {{item.updatedBy}}
             </td>
             <td>
-                <a class="cursorPointer" (click)="deleteInventoryTye(item.productId)">
+                <a class="cursorPointer" (click)="deleteInventoryTye(item.productId,'PRO')">
                     DELETE
                 </a>
             </td>
@@ -76,6 +79,7 @@ Total Records {{Count}}
                 <th>MRP</th>
                 <th>Discount (%)</th>
                 <th>Sale price</th>
+                <th>Action</th>
             </tr>
         </thead>
     
@@ -100,19 +104,19 @@ Total Records {{Count}}
                     <input type="number" class="form-control" (ngModelChange)="item.editedFlag = 'Y'" [(ngModel)]="item.count">
                 </td>
                 <td>
-                    <input type="number" class="form-control" (ngModelChange)="item.editedFlag = 'Y'" [(ngModel)]="item.mrp">
+                    <input type="number" class="form-control" (ngModelChange)="updateSale(i)" [(ngModel)]="item.mrp">
                 </td>
                 <td>
-                    <input type="number" class="form-control" (ngModelChange)="item.editedFlag = 'Y'" [(ngModel)]="item.discount">
+                    <input type="number" class="form-control" (ngModelChange)="updateSale(i)" [(ngModel)]="item.discount">
                 </td>
                 <td>
-                    <input type="number" class="form-control" (ngModelChange)="item.editedFlag = 'Y'" [(ngModel)]="item.salesprice">
+                    <input type="text" class="form-control" disabled (ngModelChange)="item.editedFlag = 'Y'" [(ngModel)]="item.salesprice">
                 </td>
-                <!-- <td>
-                    <a class="cursorPointer" (click)="deleteInventoryTye(item.productId)">
+                <td>
+                    <a class="cursorPointer" (click)="deleteInventoryTye(item.inventoryId,'INV')">
                         DELETE
                     </a>
-                </td> -->
+                </td>
             </tr>
         </tbody>
         

@@ -1,6 +1,7 @@
 import { HomeService } from './home.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { setTimeout } from 'timers';
 
 @Component({
   selector: 'app-home',
@@ -42,8 +43,9 @@ export class HomeComponent implements OnInit {
     this.homesrvc.getTypeList()
             .subscribe((res) => {
                 console.dir(res);
-                this.inventoryTypeList =res.res;
-                this.Count = res.Count;
+                this.inventoryTypeList =res.inventoryList.res;
+                this.Count = res.inventoryList.Count;
+
                 this.inventoryMasterTypeList = [{
                   page1:this.inventoryTypeList
                 }];
@@ -71,6 +73,8 @@ export class HomeComponent implements OnInit {
                 //     this.confirmModal.show();
                 // }
 
+                this.inventoryorderTypeList = res.inventoryprodList.res;
+
 
             }, (err) => {
                 
@@ -96,11 +100,11 @@ export class HomeComponent implements OnInit {
             });
   }
 
-  deleteInventoryTye(prdId){
-    this.homesrvc.deleteInventoryType(prdId)
+  deleteInventoryTye(prdId,inventorytype){
+    this.homesrvc.deleteInventoryType(prdId,inventorytype)
             .subscribe((res) => {
                 console.dir(res);
-                alert(res);
+                this.getList();
               }, (err) => {
                 
             });
@@ -118,21 +122,12 @@ export class HomeComponent implements OnInit {
   }
   
   public closestate:boolean = false;
-  public inventoryorderTypeList:any = [{
-    productName: 'ABCD4',
-    expDate : '02/12/2019',
-    count: '10',
-      mrp : '60',
-      discount : '10',
-      salesprice : '54',
-      CreatedFlag : 'N',
-      editedFlag : 'N'
-  }];
+  public inventoryorderTypeList:any = [];
   addproductOrder(){
     let tempObj = {
       productName: '',
       expDate : '',
-      count: '',
+      count: '', 
       mrp : '',
       discount : '',
       salesprice : '',
@@ -153,7 +148,23 @@ export class HomeComponent implements OnInit {
     debugger
     let obj;    
     obj = this.inventoryorderTypeList.filter(item=>item.editedFlag == 'Y' || item.CreatedFlag == 'Y');
-    console.dir(obj);
+    
+    this.homesrvc.setinventoryprodList(obj)
+            .subscribe((res) => {
+                console.dir(res);
+                alert(res);
+                this.getList();
+              }, (err) => {
+                
+            });
+  }
+  updateSale(i){
+    debugger
+    setTimeout(() => {
+      this.inventoryorderTypeList[i].editedFlag = 'Y';
+      this.inventoryorderTypeList[i].salesprice = this.inventoryorderTypeList[i].mrp - this.inventoryorderTypeList[i].mrp * (this.inventoryorderTypeList[i].discount/100);
+    }, 1000);
+    
   }
   // public inventoryCountList:any;
   // productAuto(){

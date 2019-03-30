@@ -12,8 +12,12 @@ export class HomeService {
         return this.http.post('addupdate', reqData);
     } 
 
-    deleteInventoryType(prdId){
-        return this.http.post('deleteinventoryType', {productId:prdId});
+    setinventoryprodList(reqData){
+        return this.http.post('inventoryprodType', reqData);
+    } 
+
+    deleteInventoryType(prdId,inventorytype){
+        return this.http.post('deleteinventoryType', {productId:prdId,inventorytype:inventorytype});
     }
     
     // regAuth(formData) {

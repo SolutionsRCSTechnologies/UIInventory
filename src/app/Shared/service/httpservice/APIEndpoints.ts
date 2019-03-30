@@ -4,6 +4,7 @@ export const APIEndpoints = {
     orders:'orders',
     inventorytypeList: 'inventory/type/list',
     addupdate : 'inventory/type/addupdate',
-    deleteinventoryType : 'inventory/type/delete'
+    deleteinventoryType : 'inventory/type/delete',
+    inventoryprodType: 'inventory/product/type/add'
 };
 
